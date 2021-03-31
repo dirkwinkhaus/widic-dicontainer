@@ -3,4 +3,4 @@ project(diContainer)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(diContainer main.cpp DiContainer.h)
+add_executable(diContainer main.cpp)

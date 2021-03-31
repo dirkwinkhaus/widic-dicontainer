@@ -1,7 +1,7 @@
 #include "DiContainer.h"
 
 template<class T>
-DiContainer *DiContainer::set(const char *id, Factory<T> *factory) {
+widic::DiContainer *widic::DiContainer::set(const char *id, Factory<T> *factory) {
     this->factories[id] = factory;
     this->aliases[id] = typeid(T).name();
 
@@ -9,21 +9,21 @@ DiContainer *DiContainer::set(const char *id, Factory<T> *factory) {
 }
 
 template<class T>
-DiContainer *DiContainer::set(Factory<T> *factory) {
+widic::DiContainer *widic::DiContainer::set(Factory<T> *factory) {
     this->factories[typeid(T).name()] = factory;
 
     return this;
 }
 
-template<class T, class F, typename std::enable_if<std::is_base_of<Factory<T>, F>::value>::type*>
-DiContainer *DiContainer::set() {
+template<class T, class F, typename std::enable_if<std::is_base_of<widic::Factory<T>, F>::value>::type*>
+widic::DiContainer *widic::DiContainer::set() {
     this->factories[typeid(T).name()] = new F();
 
     return this;
 }
 
 template<class T>
-T *DiContainer::get(const bool &shared) {
+T *widic::DiContainer::get(const bool &shared) {
     const char* requestedName = typeid(T).name();
 
     if (!this->has<T>()) {
@@ -45,7 +45,7 @@ T *DiContainer::get(const bool &shared) {
 }
 
 template<class T>
-T *DiContainer::get(std::string &id, const bool &shared) {
+T *widic::DiContainer::get(std::string &id, const bool &shared) {
 
     if (!this->has(id)) {
         throw std::exception();
@@ -66,10 +66,10 @@ T *DiContainer::get(std::string &id, const bool &shared) {
 }
 
 template<class T>
-bool DiContainer::has() {
+bool widic::DiContainer::has() {
     return this->factories.find(typeid(T).name()) != this->factories.end();
 }
 
-bool DiContainer::has(const std::string &id) {
+bool widic::DiContainer::has(const std::string &id) {
     return this->aliases.find(id) != this->aliases.end();
 }

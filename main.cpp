@@ -1,6 +1,8 @@
 #include <iostream>
 #include "DiContainer.h"
 
+using namespace widic;
+
 class A {
 private:
     int value = 1;
@@ -25,9 +27,6 @@ private:
 public:
     void echo() {
         std::cout << "Class C " << this->value << std::endl;
-    }
-    virtual int e() {
-        return v;
     }
 
     void setValue(const int &newValue) {
@@ -81,29 +80,27 @@ public:
 };
 
 int main() {
-
     auto *di = new DiContainer();
 
     di->set<A>(new FactoryA());
     di->set<A>("A", new FactoryA());
     di->set<B>(new FactoryB());
     di->set<C, FactoryC>();
-
     auto a = di->get<A>();
-    auto a2 = di->get<A>("A");
+    auto aa = di->get<A>("A");
     auto b = di->get<B>();
-    auto c = di->get<C>();
     auto bb = di->get<B>();
-    auto bbc = di->get<B>(false);
+    auto bbb = di->get<B>(false);
+    auto c = di->get<C>();
 
     b->setValue(5);
-    c->echo();
     c->setValue(1009);
-    std::cout << c->e() << std::endl;
 
-    std::cout << c->getValue() << std::endl;
+    std::cout << a->getValue() << std::endl;
+    std::cout << aa->getValue() << std::endl;
     std::cout << b->getValue() << std::endl;
     std::cout << bb->getValue() << std::endl;
-    std::cout << bbc->getValue() << std::endl;
+    std::cout << bbb->getValue() << std::endl;
+    std::cout << c->getValue() << std::endl;
     return 0;
 }
